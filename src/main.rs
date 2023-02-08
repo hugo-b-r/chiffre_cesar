@@ -8,6 +8,10 @@ fn main() {
         eprintln!("probleme rencontre lors de l'interpretation des arguments
             : {}", err);
         process::exit(1);
+    //match config.action { \
+    //    Action::Decryptage => {}, 
+    //    Action::Cryptage => {},
+    //}
     });
     
 }
@@ -19,12 +23,13 @@ enum Action {
 
 struct Config {
     action: Action,
+    cle: u8,
     texte: String,
 }
 
 impl Config {
     pub fn new(args: &[String]) -> Result<Config, &'static str> {
-        if args.len() < 3 {
+        if args.len() < 4 {
             return Err("il n'y a pas assez d'arguments");
         }
         let action: Action;
@@ -35,11 +40,13 @@ impl Config {
         } else {
             return Err("Premier argument n'est ni cryptage ni decryptage");
         }
-        let texte = args[2].clone();
+        let cle = args[2].clone().parse::<u8>().unwrap();
+        let texte = args[3].clone();
 
 
         Ok(Config {
             action,
+            cle,
             texte,
         })
     }
