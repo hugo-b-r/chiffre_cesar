@@ -2,18 +2,21 @@ use std::env;
 use std::process;
 
 fn main() {
-    let alphabet = "abcdefghijklmnopqrstuvwxyz1234567890";
+    let alphabet = "_abcdefghijklmnopqrstuvwxyz1234567890".to_string();
     let args: Vec<String> = env::args().collect();
 
     let config = Config::new(&args).unwrap_or_else(|err| {
         eprintln!("probleme rencontre lors de l'interpretation des arguments
             : {}", err);
         process::exit(1);
-    //match config.action { \
-    //    Action::Decryptage => {}, 
-    //    Action::Cryptage => {},
-    //}
     });
+    let resultat: String;
+    match config.action { 
+        Action::Decryptage => {resultat = decrypter(config.texte, config.cle, alphabet);},
+        Action::Cryptage => {resultat = crypter(config.texte, config.cle, alphabet);},
+    };
+
+    println!("{}", resultat);
     
 }
 
@@ -51,4 +54,22 @@ impl Config {
             texte,
         })
     }
+}
+
+fn crypter(texte: String, cle: u8, alphabet: String) -> String {
+    let mut resultat  = "".to_string();
+    for lettre in texte.chars() {
+        let index = alphabet.find(lettre).unwrap_or(0);
+        resultat.push(alphabet.chars().nth(index + usize::from(cle)).unwrap());
+    }
+    resultat
+}
+
+fn decrypter(texte: String, cle: u8, alphabet: String) -> String {
+    let mut resultat = "".to_string();
+    for lettre in texte.chars() {
+        let index = alphabet.find(lettre).unwrap_or(0);
+        resultat.push(alphabet.chars().nth(index - usize::from(cle)).unwrap());
+    }
+    resultat
 }
