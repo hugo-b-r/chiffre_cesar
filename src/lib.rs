@@ -37,8 +37,10 @@ impl Config {
 pub fn crypter(texte: String, cle: u8, alphabet: String) -> String {
     let mut resultat  = "".to_string();
     for lettre in texte.chars() {
-        let index = alphabet.find(lettre).unwrap_or(0);
-        resultat.push(alphabet.chars().nth(index + usize::from(cle)).unwrap());
+        let mut index = alphabet.find(lettre).unwrap_or(0);
+        index += usize::from(cle);
+        index = index % alphabet.len();
+        resultat.push(alphabet.chars().nth(index).unwrap());
     }
     resultat
 }
@@ -46,8 +48,13 @@ pub fn crypter(texte: String, cle: u8, alphabet: String) -> String {
 pub fn decrypter(texte: String, cle: u8, alphabet: String) -> String {
     let mut resultat = "".to_string();
     for lettre in texte.chars() {
-        let index = alphabet.find(lettre).unwrap_or(0);
-        resultat.push(alphabet.chars().nth(index - usize::from(cle)).unwrap());
+        let mut index = alphabet.find(lettre).unwrap_or(0);
+        if index <= alphabet.len() {
+            index += alphabet.len();
+        }
+        index -= usize::from(cle) % alphabet.len();
+        index = index % alphabet.len();
+        resultat.push(alphabet.chars().nth(index).unwrap());
     }
     resultat
 }
