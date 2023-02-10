@@ -3,7 +3,7 @@ use std::process;
 use chiffre_cesar::*;
 
 fn main() {
-    let alphabet = "_abcdefghijklmnopqrstuvwxyz1234567890".to_string();
+    let alphabet = "_ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890 ".to_string();
     let args: Vec<String> = env::args().collect();
 
     let config = Config::new(&args).unwrap_or_else(|err| {
