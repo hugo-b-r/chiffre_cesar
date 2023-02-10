@@ -71,4 +71,12 @@ mod tests {
 
         assert_eq!(crypte, "1d2x0wkagdw9632w6_wza9ad".to_string())
     }
+
+    #[test]
+    fn cryptage2() {
+        let alphabet = "_abcdefghijklmnopqrstuvwxyz1234567890".to_string();
+        let crypte = crypter("The difference between a dream and a plan is a date.".to_string(), 45, alphabet);
+
+        assert_eq!(crypte, "hpmhlqnnmzmvkmhjm25mmvhihlzmiuhivlhihxtivhq1hihli2mh".to_string())
+    }
 }
