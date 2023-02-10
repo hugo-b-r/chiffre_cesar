@@ -13,8 +13,12 @@ fn main() {
     });
     let resultat: String;
     match config.action { 
-        Action::Decryptage => {resultat = decrypter(config.texte, config.cle, alphabet);},
-        Action::Cryptage => {resultat = crypter(config.texte, config.cle, alphabet);},
+        Action::Decryptage => {
+            resultat = decrypter(config.texte, config.cle, alphabet);
+        },
+        Action::Cryptage => {
+            resultat = crypter(config.texte, config.cle, alphabet);
+        },
     };
 
     println!("{}", resultat);
