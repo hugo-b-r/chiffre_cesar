@@ -1,6 +1,6 @@
 use std::env;
 use std::process;
-use chiffre_cesar::*;
+use chiffre_cesar::{decrypter, crypter, Config, Action};
 
 fn main() {
     let alphabet = "_ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890 ".to_string();
