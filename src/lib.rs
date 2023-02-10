@@ -58,3 +58,17 @@ pub fn decrypter(texte: String, cle: u8, alphabet: String) -> String {
     }
     resultat
 }
+
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn cryptage1() {
+        let alphabet = "_abcdefghijklmnopqrstuvwxyz1234567890".to_string();
+        let crypte = crypter("dream your life in color".to_string(), 23, alphabet);
+
+        assert_eq!(crypte, "1d2x0wkagdw9632w6_wza9ad".to_string())
+    }
+}
